@@ -25,18 +25,24 @@ func main() {
 		jeu.Demarrer(mots)
 
 		fmt.Println("\nVoulez-vous :")
-		fmt.Println("1. Nouvelle Partie")
-		fmt.Println("2. Quitter")
+		fmt.Println("1. Facile")
+		fmt.Println("2. moyen")
+		fmt.Println("3. Difficile")
+		fmt.Println("4. Quitter")
 
 		var choix int
 		fmt.Print("Votre choix : ")
 		fmt.Scanln(&choix)
 
-		if choix == 2 {
+		if choix == 4 {
 			fmt.Println("Merci d'avoir joué ! À bientôt.")
 			break
-		} else if choix != 1 {
+		} else if choix == 1 {
 			fmt.Println("Choix non valide. Fermeture du jeu.")
+			break
+		}
+		if choix == 3 {
+			fmt.Println("A vous de jouer ! : ")
 			break
 		}
 	}
