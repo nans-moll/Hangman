@@ -9,34 +9,35 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("ajouter un fichier existant avec")
+		fmt.Println("Veuillez fournir un fichier contenant des mots en paramètre.")
 		return
 	}
-	wordsFile := os.Args[1]
-	words, err := utils.LoadWords(wordsFile)
+
+	fichierMots := os.Args[1]
+	mots, err := utils.ChargerMots(fichierMots)
 	if err != nil {
-		fmt.Printf("Erreur lors du chargement des mots: %v\n", err)
+		fmt.Printf("Erreur lors du chargement des mots : %v\n", err)
 		return
 	}
-	{
-		game.start(words)
 
-		fmt.Println("\nVous voulez ?:")
-		fmt.Println("							")
-		fmt.Println("1. New game")
-		fmt.Println("							")
-		fmt.Println("2. Exit")
+	for {
+
+		jeu.Demarrer(mots)
+
+		fmt.Println("\nVoulez-vous :")
+		fmt.Println("1. Nouvelle Partie")
+		fmt.Println("2. Quitter")
+
+		var choix int
+		fmt.Print("Votre choix : ")
+		fmt.Scanln(&choix)
+
+		if choix == 2 {
+			fmt.Println("Merci d'avoir joué ! À bientôt.")
+			break
+		} else if choix != 1 {
+			fmt.Println("Choix non valide. Fermeture du jeu.")
+			break
+		}
 	}
-	var choice int
-	fmt.Print("Votre choix : ")
-	fmt.Scanln(&choice)
-
-	if choice == 2 {
-		fmt.Println("Merci d'avoir joué ! À bientôt.")
-		break
-	} else if choice != 1 {
-		fmt.Println("Choix non autorise. aurevoir.")
-		break
-	}
-
 }
