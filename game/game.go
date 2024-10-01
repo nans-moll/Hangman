@@ -132,7 +132,7 @@ func (j *Jeu) devinerLettre(lettre rune) {
 }
 
 func (j *Jeu) afficherEtat() {
-	fmt.Println(etapesPendu[6-j.TentativesRestantes])
+	fmt.Println(etapesPendu[5-j.TentativesRestantes])
 	fmt.Printf("\nMot à deviner : %s\n", string(j.MotAffiche))
 	fmt.Printf("Tentatives restantes : %d\n", j.TentativesRestantes)
 	fmt.Printf("Lettres déjà tentées : %s\n\n", string(j.LettresDevinees))

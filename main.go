@@ -1,7 +1,8 @@
 package main
 
 import (
-	"Hangman/Hangman/utils"
+	jeu "Hangman/game"
+	"Hangman/utils"
 	"fmt"
 	"os"
 )
@@ -21,7 +22,7 @@ func main() {
 
 	for {
 
-		jeu.jeu.Demarrer(mots)
+		jeu.Demarrer(mots)
 
 		fmt.Println("\nVoulez-vous :")
 		fmt.Println("1. Facile")
