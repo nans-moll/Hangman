@@ -50,7 +50,7 @@ var etapesPendu = []string{
      -----
      |   |
      O   |
-    /|\\  |
+    /|\\ |
          |
          |
     =======`,
@@ -58,7 +58,7 @@ var etapesPendu = []string{
      -----
      |   |
      O   |
-    /|\\  |
+    /|\\ |
     /    |
          |
     =======`,
@@ -66,50 +66,59 @@ var etapesPendu = []string{
      -----
      |   |
      O   |
-    /|\\  |
-    / \\  |
+    /|\\ |
+    / \\ |
          |
     =======`,
 }
 
-func Demarrer(mots []string) {
+func Demarrer(mots []string, niveau string) {
 	motSecret := mots[rand.Intn(len(mots))]
 
 	jeu := &Jeu{
-		MotSecret:           strings.ToLower(motSecret),
-		MotAffiche:          make([]rune, len(motSecret)),
-		TentativesRestantes: 5,
-		LettresDevinees:     []rune{},
+		MotSecret:       strings.ToLower(motSecret),
+		MotAffiche:      make([]rune, len(motSecret)),
+		LettresDevinees: []rune{},
 	}
+	switch niveau {
+	case "facile":
+		jeu.TentativesRestantes = 10
 
+	case "moyen":
+		jeu.TentativesRestantes = 7
+
+	case "difficile":
+		jeu.TentativesRestantes = 5
+
+	default:
+		jeu.TentativesRestantes = 5
+	}
 	for i := range jeu.MotAffiche {
 		jeu.MotAffiche[i] = '_'
 	}
 
 	for !jeu.estTermine() {
 		jeu.afficherEtat()
-		fmt.Print("Entrez une lettre : ")
+		fmt.Print("Entrez une lettre :")
 		var input string
 		fmt.Scanln(&input)
 		if len(input) > 0 {
 			jeu.devinerLettre(rune(input[0]))
+
 		}
-
 	}
-
 	if jeu.estGagne() {
-		fmt.Printf("Félicitations, vous avez gagné ! Le mot était : %s\n", jeu.MotSecret)
+		fmt.Printf("Felicitation, vous avez gagné! Le mot était : %s\n", jeu.MotSecret)
 	} else {
-		fmt.Printf("Dommage, vous avez perdu. Le mot était : %s\n", jeu.MotSecret)
+		fmt.Printf("Dommage vous avez perdu. le mot était : %s\n", jeu.MotSecret)
 	}
 }
 
 func (j *Jeu) devinerLettre(lettre rune) {
 	lettre = rune(strings.ToLower(string(lettre))[0])
 
-	// Vérifier si la lettre est bien une lettre alphabétique
 	if lettre < 'a' || lettre > 'z' {
-		fmt.Println("chef choisi une lettre !")
+		fmt.Println("Choisissez une lettre valide !")
 		return
 	}
 
@@ -120,6 +129,7 @@ func (j *Jeu) devinerLettre(lettre rune) {
 
 	j.LettresDevinees = append(j.LettresDevinees, lettre)
 
+	// Vérifier si la lettre fait partie du mot secret
 	if strings.ContainsRune(j.MotSecret, lettre) {
 		for i, l := range j.MotSecret {
 			if l == lettre {
@@ -132,7 +142,13 @@ func (j *Jeu) devinerLettre(lettre rune) {
 }
 
 func (j *Jeu) afficherEtat() {
-	fmt.Println(etapesPendu[5-j.TentativesRestantes])
+	index := 6 - j.TentativesRestantes
+	if index < 0 {
+		index = 0
+	} else if index >= len(etapesPendu) {
+		index = len(etapesPendu) - 1
+	}
+	fmt.Println(etapesPendu[:index])
 	fmt.Printf("\nMot à deviner : %s\n", string(j.MotAffiche))
 	fmt.Printf("Tentatives restantes : %d\n", j.TentativesRestantes)
 	fmt.Printf("Lettres déjà tentées : %s\n\n", string(j.LettresDevinees))

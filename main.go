@@ -4,6 +4,7 @@ import (
 	jeu "Hangman/game"
 	"Hangman/utils"
 	"fmt"
+	"github.com/fatih/color"
 	"os"
 )
 
@@ -22,12 +23,14 @@ func main() {
 
 	for {
 
-		jeu.Demarrer(mots)
-
 		fmt.Println("\nVoulez-vous :")
-		fmt.Println("1. Facile")
-		fmt.Println("2. moyen")
-		fmt.Println("3. Difficile")
+		fmt.Println("					")
+		color.Green("1. Facile")
+		fmt.Println("					")
+		color.Yellow("2. moyen")
+		fmt.Println("					")
+		color.Red("3. Difficile")
+		fmt.Println("					")
 		fmt.Println("4. Quitter")
 
 		var choix int
@@ -37,13 +40,18 @@ func main() {
 		if choix == 4 {
 			fmt.Println("Merci d'avoir joué ! À bientôt.")
 			break
-		} else if choix == 1 {
-			fmt.Println("Choix non valide. Fermeture du jeu.")
-			break
 		}
-		if choix == 3 {
-			fmt.Println("A vous de jouer ! : ")
-			break
+		switch choix {
+		case 1:
+			jeu.Demarrer(mots, "facile")
+
+		case 2:
+			jeu.Demarrer(mots, "moyen")
+
+		case 3:
+			jeu.Demarrer(mots, "difficile")
+		default:
+			fmt.Println("veuillez réessayer")
 		}
 	}
 }
