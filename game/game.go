@@ -13,7 +13,7 @@ type Jeu struct {
 	LettresDevinees     []rune
 }
 
-var etapesPendu = []string{
+var etapesPendu1 = []string{
 	`
      -----
      |   |
@@ -104,7 +104,6 @@ func Demarrer(mots []string, niveau string) {
 		fmt.Scanln(&input)
 		if len(input) > 0 {
 			jeu.devinerLettre(rune(input[0]))
-
 		}
 	}
 	if jeu.estGagne() {
@@ -129,7 +128,6 @@ func (j *Jeu) devinerLettre(lettre rune) {
 
 	j.LettresDevinees = append(j.LettresDevinees, lettre)
 
-	// Vérifier si la lettre fait partie du mot secret
 	if strings.ContainsRune(j.MotSecret, lettre) {
 		for i, l := range j.MotSecret {
 			if l == lettre {
@@ -145,10 +143,11 @@ func (j *Jeu) afficherEtat() {
 	index := 6 - j.TentativesRestantes
 	if index < 0 {
 		index = 0
-	} else if index >= len(etapesPendu) {
-		index = len(etapesPendu) - 1
+	} else if index >= len(etapesPendu1) {
+		index = len(etapesPendu1) - 1
 	}
-	fmt.Println(etapesPendu[:index])
+
+	fmt.Println(etapesPendu1[index])
 	fmt.Printf("\nMot à deviner : %s\n", string(j.MotAffiche))
 	fmt.Printf("Tentatives restantes : %d\n", j.TentativesRestantes)
 	fmt.Printf("Lettres déjà tentées : %s\n\n", string(j.LettresDevinees))
