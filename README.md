@@ -21,7 +21,7 @@ sur le theme de l'informatique Avec plus 50mots à devinier amusez-vous a tous l
 
 ## Organisation 
 J'ai créer  un dossier Hangman puis par la suite créer plusieurs dossier avec un dossier Hangman contenant le main, un dossier game 
-contenant tout le deroulement du jeu et un dossier utils contenant le code qui permet de relier le main au fichier ainsi qu'un 
+contenant tout le deroulement du jeu et un dossier utils contenant le code qui permet de relier le main au fichier.txt ainsi qu'un 
 fichier words.txt pour lancer le jeu avec tout les mots à deviner.
 
 ## Lancement du jeu 
